@@ -2,8 +2,8 @@ import type { AppSettings } from '@/types';
 
 export const defaultSettings: AppSettings = {
   branding: {
-    logo: '',
-    name: 'Seva Kendra Digital',
+    logo: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgPHBhdGggZD0iTTUgMTJoMi41VzloLTUgWiIvPgogIDxwYXRoIGQ9Ik0gMTcgMTJoMi41VzloLTUgWiIvPgogIDxwYXRoIGQ9Ik0xMiAxOHYtMi41IiAvPgogIDxwYXRoIGQ9Ik0xMiAxMi41VjEwIiAvPgogIDxwYXRoIGQ9Ik0xMiA1djIuNSIgLz4KICA8cGF0aCBkPSJtMTQuNSA0LjVMMTIgMiA5LjUgNC41IiAvPgo8L3N2Zz4K',
+    name: 'Quick Digital Seva Kendra',
   },
   colors: {
     primary: '36 100% 60%',
