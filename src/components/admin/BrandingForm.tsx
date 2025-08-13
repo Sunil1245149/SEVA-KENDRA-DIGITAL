@@ -17,11 +17,15 @@ type BrandingData = {
 export default function BrandingForm() {
   const { settings, setSettings } = useAppData();
   const { toast } = useToast();
-  const { control, handleSubmit, register, watch } = useForm<BrandingData>({
+  const { control, handleSubmit, register, watch, setValue } = useForm<BrandingData>({
     defaultValues: {
       branding: settings.branding,
       colors: settings.colors,
     },
+    values: {
+      branding: settings.branding,
+      colors: settings.colors,
+    }
   });
 
   const logoValue = watch('branding.logo');
@@ -31,9 +35,11 @@ export default function BrandingForm() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        const result = reader.result as string;
+        setValue('branding.logo', result);
         setSettings(prev => ({
           ...prev,
-          branding: { ...prev.branding, logo: reader.result as string },
+          branding: { ...prev.branding, logo: result },
         }));
       };
       reader.readAsDataURL(file);
