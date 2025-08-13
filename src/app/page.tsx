@@ -7,6 +7,7 @@ import AppointmentSection from '@/components/sections/AppointmentSection';
 import AboutUsSection from '@/components/sections/AboutUsSection';
 import Footer from '@/components/sections/Footer';
 import NewsTicker from '@/components/sections/NewsTicker';
+import AppointmentStatusNotifier from '@/components/AppointmentStatusNotifier';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <AboutUsSection />
       </main>
       <Footer />
+      <AppointmentStatusNotifier />
     </div>
   );
 }

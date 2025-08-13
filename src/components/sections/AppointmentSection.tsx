@@ -14,6 +14,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import type { Appointment } from '@/types';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 type AppointmentFormData = Omit<Appointment, 'id' | 'status'>;
 
@@ -21,6 +22,7 @@ export default function AppointmentSection() {
   const { settings, setSettings } = useAppData();
   const { toast } = useToast();
   const { register, handleSubmit, setValue, watch, control, formState: { errors } } = useForm<AppointmentFormData>();
+  const [, setLastAppointmentId] = useLocalStorage<string | null>('last-appointment-id', null);
   
   const selectedDate = watch('date');
 
@@ -35,6 +37,8 @@ export default function AppointmentSection() {
       ...prev,
       appointments: [...(prev.appointments || []), newAppointment],
     }));
+
+    setLastAppointmentId(newAppointment.id);
 
     toast({
       title: "Appointment Requested",
