@@ -7,13 +7,13 @@ export const defaultSettings: AppSettings = {
     name: 'Quick Digital Seva Kendra',
   },
   colors: {
-    primary: '205 90% 55%',
-    background: '207 90% 97%',
-    accent: '210 40% 94.1%',
+    primary: '#0ea5e9', // sky-500
+    background: '#f0f9ff', // sky-50
+    accent: '#38bdf8', // sky-400
   },
   typography: {
-    fontBody: 'Inter',
-    fontHeadline: 'Roboto Slab',
+    fontBody: 'PT Sans',
+    fontHeadline: 'Playfair Display',
   },
   header: {
     contact: {

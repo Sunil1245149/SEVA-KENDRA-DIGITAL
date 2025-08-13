@@ -1,6 +1,7 @@
+
 'use client';
 import { useAppData } from '@/context/AppDataContext';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,7 +18,7 @@ type BrandingData = {
 export default function BrandingForm() {
   const { settings, setSettings } = useAppData();
   const { toast } = useToast();
-  const { control, handleSubmit, register, watch, setValue } = useForm<BrandingData>({
+  const { register, handleSubmit, watch, setValue } = useForm<BrandingData>({
     defaultValues: {
       branding: settings.branding,
       colors: settings.colors,
@@ -29,6 +30,9 @@ export default function BrandingForm() {
   });
 
   const logoValue = watch('branding.logo');
+  const primaryColor = watch('colors.primary');
+  const backgroundColor = watch('colors.background');
+  const accentColor = watch('colors.accent');
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -37,8 +41,6 @@ export default function BrandingForm() {
       reader.onloadend = () => {
         const result = reader.result as string;
         setValue('branding.logo', result);
-        // Note: We don't call setSettings here anymore. 
-        // We wait for the user to click "Save Branding".
       };
       reader.readAsDataURL(file);
     }
@@ -81,20 +83,59 @@ export default function BrandingForm() {
             </div>
             
             <div className="space-y-4">
-              <h3 className="font-medium font-headline">Color Scheme (HSL Format)</h3>
-              <p className="text-sm text-muted-foreground">Enter HSL values without 'hsl()' e.g., '36 100% 60%'.</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <Label htmlFor="primaryColor">Primary Color</Label>
-                  <Input id="primaryColor" {...register('colors.primary')} />
+              <h3 className="font-medium font-headline">Color Scheme</h3>
+              <p className="text-sm text-muted-foreground">Choose your site's main colors.</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex items-center gap-4">
+                    <div className="relative">
+                        <Label htmlFor="primaryColor">Primary</Label>
+                        <Input 
+                            id="primaryColor" 
+                            type="color" 
+                            className="p-1 h-10 w-14"
+                            {...register('colors.primary')}
+                        />
+                    </div>
+                    <Input 
+                        className="flex-1" 
+                        value={primaryColor}
+                        onChange={(e) => setValue('colors.primary', e.target.value)}
+                        placeholder="#007bff"
+                    />
                 </div>
-                <div>
-                  <Label htmlFor="backgroundColor">Background Color</Label>
-                  <Input id="backgroundColor" {...register('colors.background')} />
+                <div className="flex items-center gap-4">
+                    <div className="relative">
+                        <Label htmlFor="backgroundColor">Background</Label>
+                        <Input 
+                            id="backgroundColor" 
+                            type="color" 
+                            className="p-1 h-10 w-14"
+                            {...register('colors.background')}
+                        />
+                    </div>
+                    <Input 
+                        className="flex-1" 
+                        value={backgroundColor}
+                        onChange={(e) => setValue('colors.background', e.target.value)}
+                        placeholder="#f8f9fa"
+                    />
                 </div>
-                <div>
-                  <Label htmlFor="accentColor">Accent/Secondary Color</Label>
-                  <Input id="accentColor" {...register('colors.accent')} />
+                <div className="flex items-center gap-4">
+                    <div className="relative">
+                        <Label htmlFor="accentColor">Accent</Label>
+                        <Input 
+                            id="accentColor" 
+                            type="color" 
+                            className="p-1 h-10 w-14"
+                            {...register('colors.accent')}
+                        />
+                    </div>
+                    <Input 
+                        className="flex-1" 
+                        value={accentColor}
+                        onChange={(e) => setValue('colors.accent', e.target.value)}
+                        placeholder="#6c757d"
+                    />
                 </div>
               </div>
             </div>
