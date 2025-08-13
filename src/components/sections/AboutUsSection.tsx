@@ -25,7 +25,7 @@ export default function AboutUsSection() {
                 </div>
             )}
              <div className="flex items-center gap-4 pt-4">
-              {isInitialized ? (
+              {isInitialized && ownerImageUrl ? (
                 <Image
                   src={ownerImageUrl}
                   alt={ownerName}
@@ -53,7 +53,7 @@ export default function AboutUsSection() {
             </div>
           </div>
           <div className="order-first md:order-last">
-            {isInitialized ? (
+            {isInitialized && imageUrl ? (
                <Image
                   src={imageUrl}
                   alt={title}
