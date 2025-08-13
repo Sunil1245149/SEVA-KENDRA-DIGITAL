@@ -7,8 +7,8 @@ export const defaultSettings: AppSettings = {
     name: 'Quick Digital Seva Kendra',
   },
   colors: {
-    primary: '217 91% 60%',
-    background: '210 40% 98%',
+    primary: '205 90% 55%',
+    background: '207 90% 97%',
     accent: '210 40% 94.1%',
   },
   typography: {
