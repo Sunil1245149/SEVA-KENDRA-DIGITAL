@@ -1,3 +1,4 @@
+
 export interface NavLink {
   id: string;
   text: string;
@@ -66,5 +67,7 @@ export interface AppSettings {
     text: string;
     imageUrl: string;
     dataAiHint: string;
+    ownerName: string;
+    ownerImageUrl: string;
   };
 }

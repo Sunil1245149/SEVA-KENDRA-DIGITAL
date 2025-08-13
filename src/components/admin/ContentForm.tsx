@@ -1,3 +1,4 @@
+
 'use client';
 import { useAppData } from '@/context/AppDataContext';
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -27,6 +28,7 @@ export default function ContentForm() {
   
   const watchedBanners = watch('hero.banners');
   const watchedAboutImage = watch('about.imageUrl');
+  const watchedOwnerImage = watch('about.ownerImageUrl');
 
   const onSubmit = (data: AppSettings) => {
     setSettings(data);
@@ -53,6 +55,12 @@ export default function ContentForm() {
   const handleAboutImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleImageUpload(e, (value) => {
       setValue('about.imageUrl', value, { shouldDirty: true });
+    });
+  };
+
+  const handleOwnerImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImageUpload(e, (value) => {
+      setValue('about.ownerImageUrl', value, { shouldDirty: true });
     });
   };
   
@@ -165,13 +173,27 @@ export default function ContentForm() {
                    <div><Label>Content</Label><Textarea {...register('about.text')} rows={5} /></div>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
                       <div className="space-y-2">
-                        <Label htmlFor="aboutImage">Image</Label>
+                        <Label htmlFor="aboutImage">Section Image</Label>
                         <Input id="aboutImage" type="file" accept="image/*" onChange={handleAboutImageUpload} />
                         <Label htmlFor="aboutImageHint">Image AI Hint</Label>
                          <Input id="aboutImageHint" {...register('about.dataAiHint')} />
                       </div>
                       <div>
                         {watchedAboutImage && <Image src={watchedAboutImage} alt="About us preview" width={200} height={120} className="rounded-md object-cover border" />}
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start pt-4 border-t mt-4">
+                      <div className="space-y-2">
+                          <Label>Owner Name</Label>
+                          <Input {...register('about.ownerName')} />
+                          <Label htmlFor="ownerImage">Owner Photo</Label>
+                          <Input id="ownerImage" type="file" accept="image/*" onChange={handleOwnerImageUpload} />
+                      </div>
+                       <div>
+                        <Label>Owner Photo Preview</Label>
+                        <div className="mt-2">
+                          {watchedOwnerImage && <Image src={watchedOwnerImage} alt="Owner preview" width={100} height={100} className="rounded-full object-cover border" />}
+                        </div>
                       </div>
                    </div>
                 </AccordionContent>

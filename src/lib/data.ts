@@ -1,3 +1,4 @@
+
 import type { AppSettings } from '@/types';
 
 export const defaultSettings: AppSettings = {
@@ -6,13 +7,13 @@ export const defaultSettings: AppSettings = {
     name: 'Quick Digital Seva Kendra',
   },
   colors: {
-    primary: '36 100% 60%',
-    background: '60 56% 91%',
-    accent: '120 60% 32%',
+    primary: '217 91% 60%',
+    background: '210 40% 98%',
+    accent: '210 40% 94.1%',
   },
   typography: {
-    fontBody: 'PT Sans',
-    fontHeadline: 'Playfair Display',
+    fontBody: 'Inter',
+    fontHeadline: 'Roboto Slab',
   },
   header: {
     contact: {
@@ -73,5 +74,7 @@ export const defaultSettings: AppSettings = {
     text: 'Seva Kendra Digital is committed to bridging the digital divide by providing essential government and non-government services to citizens across India. Our mission is to make services accessible, affordable, and efficient for everyone, empowering communities through technology.',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'community center india',
+    ownerName: 'Sunil Sakhare',
+    ownerImageUrl: 'https://placehold.co/150x150.png',
   },
 };
