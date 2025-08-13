@@ -26,6 +26,7 @@ export default function ContentForm() {
   const { fields: socialLinkFields, append: appendSocialLink, remove: removeSocialLink } = useFieldArray({ control, name: "footer.socialLinks" });
   
   const watchedBanners = watch('hero.banners');
+  const watchedAboutImage = watch('about.imageUrl');
 
   const onSubmit = (data: AppSettings) => {
     setSettings(data);
@@ -170,7 +171,7 @@ export default function ContentForm() {
                        <Input id="aboutImageHint" {...register('about.dataAiHint')} />
                     </div>
                     <div>
-                      {settings.about.imageUrl && <Image src={settings.about.imageUrl} alt="About us preview" width={200} height={120} className="rounded-md object-cover border" />}
+                      {watchedAboutImage && <Image src={watchedAboutImage} alt="About us preview" width={200} height={120} className="rounded-md object-cover border" />}
                     </div>
                  </div>
               </AccordionContent>
