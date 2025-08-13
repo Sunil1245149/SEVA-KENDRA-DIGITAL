@@ -1,4 +1,5 @@
 
+
 export interface NavLink {
   id: string;
   text: string;
@@ -26,6 +27,18 @@ export interface ServiceItem {
   name: string;
   description: string;
 }
+
+export type AppointmentStatus = 'pending' | 'approved' | 'rejected';
+
+export interface Appointment {
+  id: string;
+  name: string;
+  phone: string;
+  service: string;
+  date: Date;
+  status: AppointmentStatus;
+}
+
 
 export interface AppSettings {
   branding: {
@@ -70,4 +83,5 @@ export interface AppSettings {
     ownerName: string;
     ownerImageUrl: string;
   };
+  appointments: Appointment[];
 }

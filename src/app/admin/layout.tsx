@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CalendarCheck } from 'lucide-react';
 import { SidebarProvider, Sidebar, SidebarTrigger, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarInset } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -36,6 +37,11 @@ function AdminSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={pathname === '/admin'}>
               <Link href="/admin"><FileText /> Content</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={pathname === '/admin/appointments'}>
+              <Link href="/admin/appointments"><CalendarCheck /> Appointments</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
@@ -101,7 +107,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-30 flex h-14 items-center gap-4 border-b px-6">
                 <SidebarTrigger className="md:hidden" />
                 <h1 className="text-lg font-semibold md:text-xl capitalize">
-                    {pathname.split('/').pop() || 'content'}
+                    {pathname.split('/').pop()?.replace('-', ' ') || 'content'}
                 </h1>
             </header>
             <main className="flex-1 p-4 md:p-6">

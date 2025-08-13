@@ -12,8 +12,8 @@ export const defaultSettings: AppSettings = {
     accent: '#38bdf8', // sky-400
   },
   typography: {
-    fontBody: 'PT Sans',
-    fontHeadline: 'Playfair Display',
+    fontBody: 'Inter',
+    fontHeadline: 'Roboto Slab',
   },
   header: {
     contact: {
@@ -23,6 +23,7 @@ export const defaultSettings: AppSettings = {
     navLinks: [
       { id: 'home', text: 'Home', href: '#home' },
       { id: 'services', text: 'Services', href: '#services' },
+      { id: 'appointment', text: 'Appointment', href: '#appointment' },
       { id: 'about', text: 'About Us', href: '#about' },
       { id: 'contact', text: 'Contact', href: '#contact' },
     ],
@@ -56,7 +57,7 @@ export const defaultSettings: AppSettings = {
     ],
   },
   news: {
-    ticker: 'Latest Update: Aadhaar card services are now available 24/7. | New PAN card applications are processed within 48 hours.',
+    ticker: 'Latest Update: Aadhaar card services are now available 24/7. | New PAN card applications are processed within 48 hours. | Book your appointment online now!',
   },
   services: {
     title: 'Our Services',
@@ -77,4 +78,5 @@ export const defaultSettings: AppSettings = {
     ownerName: 'Sunil Sakhare',
     ownerImageUrl: 'https://placehold.co/150x150.png',
   },
+  appointments: [],
 };
