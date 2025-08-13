@@ -15,8 +15,9 @@ import Image from 'next/image';
 export default function ContentForm() {
   const { settings, setSettings } = useAppData();
   const { toast } = useToast();
-  const { control, register, handleSubmit, reset } = useForm<AppSettings>({
+  const { control, register, handleSubmit, reset, setValue, watch } = useForm<AppSettings>({
     defaultValues: settings,
+    values: settings,
   });
 
   const { fields: serviceFields, append: appendService, remove: removeService } = useFieldArray({ control, name: "services.items" });
@@ -24,26 +25,36 @@ export default function ContentForm() {
   const { fields: navLinkFields, append: appendNavLink, remove: removeNavLink } = useFieldArray({ control, name: "header.navLinks" });
   const { fields: socialLinkFields, append: appendSocialLink, remove: removeSocialLink } = useFieldArray({ control, name: "footer.socialLinks" });
   
+  const watchedBanners = watch('hero.banners');
+
   const onSubmit = (data: AppSettings) => {
     setSettings(data);
     toast({ title: "Content updated successfully!" });
   };
   
-  const handleAboutImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSettings(prev => ({
-          ...prev,
-          about: { ...prev.about, imageUrl: reader.result as string },
-        }));
-        reset({ ...settings, about: { ...settings.about, imageUrl: reader.result as string }})
+        setter(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleBannerImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    handleImageUpload(e, (value) => {
+      setValue(`hero.banners.${index}.imageUrl`, value, { shouldDirty: true });
+    });
+  };
+
+  const handleAboutImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImageUpload(e, (value) => {
+      setValue('about.imageUrl', value, { shouldDirty: true });
+    });
+  };
+  
   return (
     <Card>
       <CardHeader>
@@ -94,12 +105,23 @@ export default function ContentForm() {
               <AccordionContent className="space-y-4 pt-4">
                 {bannerFields.map((field, index) => (
                     <div key={field.id} className="p-4 border rounded-md space-y-2 relative">
-                        <Label>Banner {index+1}</Label>
-                        <Input placeholder="Image URL" {...register(`hero.banners.${index}.title`)} />
-                        <Input placeholder="Title" {...register(`hero.banners.${index}.title`)} />
-                        <Input placeholder="Subtitle" {...register(`hero.banners.${index}.subtitle`)} />
-                        <Input placeholder="CTA Text" {...register(`hero.banners.${index}.cta`)} />
                         <Button type="button" variant="destructive" size="sm" className="absolute top-2 right-2" onClick={() => removeBanner(index)}>Remove</Button>
+                        <Label>Banner {index + 1}</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                          <div className="space-y-2">
+                            <Input placeholder="Title" {...register(`hero.banners.${index}.title`)} />
+                            <Input placeholder="Subtitle" {...register(`hero.banners.${index}.subtitle`)} />
+                            <Input placeholder="CTA Text" {...register(`hero.banners.${index}.cta`)} />
+                             <Input placeholder="Image AI Hint" {...register(`hero.banners.${index}.dataAiHint`)} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor={`bannerImage-${index}`}>Image</Label>
+                            <Input id={`bannerImage-${index}`} type="file" accept="image/*" onChange={(e) => handleBannerImageUpload(e, index)} />
+                            {watchedBanners[index]?.imageUrl && (
+                              <Image src={watchedBanners[index].imageUrl} alt={`Banner ${index+1} preview`} width={200} height={100} className="rounded-md object-cover mt-2 border" />
+                            )}
+                          </div>
+                        </div>
                     </div>
                 ))}
                 <Button type="button" variant="outline" size="sm" onClick={() => appendBanner({id: `${Date.now()}`, title:'', subtitle:'', cta: '', imageUrl: 'https://placehold.co/1200x500.png', dataAiHint: 'new banner'})}><PlusCircle className="h-4 w-4 mr-2"/>Add Banner</Button>
@@ -140,11 +162,17 @@ export default function ContentForm() {
               <AccordionContent className="space-y-4 pt-4">
                  <div><Label>Section Title</Label><Input {...register('about.title')} /></div>
                  <div><Label>Content</Label><Textarea {...register('about.text')} rows={5} /></div>
-                 <div>
-                    <Label htmlFor="aboutImage">Image</Label>
-                    <Input id="aboutImage" type="file" accept="image/*" onChange={handleAboutImageUpload} />
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                    <div className="space-y-2">
+                      <Label htmlFor="aboutImage">Image</Label>
+                      <Input id="aboutImage" type="file" accept="image/*" onChange={handleAboutImageUpload} />
+                      <Label htmlFor="aboutImageHint">Image AI Hint</Label>
+                       <Input id="aboutImageHint" {...register('about.dataAiHint')} />
+                    </div>
+                    <div>
+                      {settings.about.imageUrl && <Image src={settings.about.imageUrl} alt="About us preview" width={200} height={120} className="rounded-md object-cover border" />}
+                    </div>
                  </div>
-                 {settings.about.imageUrl && <Image src={settings.about.imageUrl} alt="About us preview" width={200} height={120} className="rounded-md object-cover" />}
               </AccordionContent>
             </AccordionItem>
 
