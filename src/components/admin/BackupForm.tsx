@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Download, Upload } from 'lucide-react';
+import { Download, Upload, Trash2 } from 'lucide-react';
 
 export default function BackupForm() {
   const { settings, setSettings, resetSettings } = useAppData();
@@ -87,7 +87,9 @@ export default function BackupForm() {
             <h3 className="font-medium text-destructive">Reset to Defaults</h3>
             <p className="text-sm text-muted-foreground">This will erase all your customizations. This action cannot be undone.</p>
           </div>
-          <Button variant="destructive" onClick={resetSettings}>Reset All Settings</Button>
+          <Button variant="destructive" onClick={resetSettings}>
+             <Trash2 className="mr-2 h-4 w-4" /> Reset All Settings
+          </Button>
         </div>
 
       </CardContent>
