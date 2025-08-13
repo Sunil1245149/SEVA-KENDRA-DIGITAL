@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useAppData } from '@/context/AppDataContext';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
+import { Button } from '../ui/button';
 
 const iconMap: { [key: string]: React.ElementType } = {
   facebook: Facebook,
@@ -15,31 +16,34 @@ export default function Footer() {
   const { copyright, socialLinks } = settings.footer;
 
   return (
-    <footer id="contact" className="bg-secondary text-secondary-foreground">
-      <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center">
-        {isInitialized ? (
-          <p className="text-sm text-center sm:text-left">{copyright}</p>
-        ) : (
-          <Skeleton className="h-5 w-72" />
-        )}
-        <div className="flex gap-4 mt-4 sm:mt-0">
+    <footer id="contact" className="bg-muted text-muted-foreground border-t">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           {isInitialized ? (
-            socialLinks.map((link) => {
-              const Icon = iconMap[link.name.toLowerCase()];
-              return (
-                <Link key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-                  {Icon && <Icon size={20} />}
-                  <span className="sr-only">{link.name}</span>
-                </Link>
-              );
-            })
+            <p className="text-sm text-center sm:text-left">{copyright}</p>
           ) : (
-            <div className="flex gap-4">
-                <Skeleton className="h-5 w-5 rounded-full" />
-                <Skeleton className="h-5 w-5 rounded-full" />
-                <Skeleton className="h-5 w-5 rounded-full" />
-            </div>
+            <Skeleton className="h-5 w-72" />
           )}
+          <div className="flex gap-2">
+            {isInitialized ? (
+              socialLinks.map((link) => {
+                const Icon = iconMap[link.name.toLowerCase()];
+                return (
+                  <Button key={link.id} variant="ghost" size="icon" asChild>
+                    <Link href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+                      {Icon && <Icon size={20} />}
+                    </Link>
+                  </Button>
+                );
+              })
+            ) : (
+              <div className="flex gap-2">
+                  <Skeleton className="h-10 w-10 rounded-md" />
+                  <Skeleton className="h-10 w-10 rounded-md" />
+                  <Skeleton className="h-10 w-10 rounded-md" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </footer>

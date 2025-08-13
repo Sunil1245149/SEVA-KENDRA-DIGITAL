@@ -9,21 +9,21 @@ export default function ServicesSection() {
   const { title, items } = settings.services;
 
   return (
-    <section id="services" className="py-12 md:py-20 bg-accent">
+    <section id="services" className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">{title}</h2>
-          <p className="text-lg text-muted-foreground mt-2">Your one-stop solution for all digital needs.</p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold text-foreground">{title}</h2>
+          <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">Your one-stop solution for all digital needs, delivered with efficiency and care.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {isInitialized
             ? items.map((service) => (
-                <Card key={service.id} className="text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-card">
+                <Card key={service.id} className="text-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-card border-t-4 border-t-primary">
                   <CardHeader>
                     <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-fit mb-4">
                       <CustomIcon name={service.icon} className="h-8 w-8" />
                     </div>
-                    <CardTitle className="font-headline">{service.name}</CardTitle>
+                    <CardTitle className="font-headline text-xl">{service.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">{service.description}</p>
